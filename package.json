@@ -1,0 +1,29 @@
+{
+  "name": "react-native-stepper-tour",
+  "version": "1.0.0",
+  "description": "react-native-stepper-tour is a lightweight and flexible React Native package designed to create guided tours within your app. This package allows you to guide users step by step through key features or onboarding processes with dynamically positioned tooltips.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "app-tour",
+    "tooltip",
+    "guide"
+  ],
+  "author": "Aman Jangid",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-native": "^0.70.0",
+    "react-native-svg": "^13.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-native": "^0.70.0"
+  },
+  "files": [
+    "src"
+  ]
+}
