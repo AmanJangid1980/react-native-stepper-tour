@@ -3,6 +3,7 @@ import {
   Animated,
   Dimensions,
   Easing,
+  Platform,
   View,
   type LayoutChangeEvent,
 } from "react-native";
@@ -18,14 +19,30 @@ const defaultSvgPath: SvgMaskPathFunction = ({
   position,
   canvasSize,
 }): string => {
-  const positionX = (position.x as any)._value as number;
-  const positionY = (position.y as any)._value as number;
-  const sizeX = (size.x as any)._value as number;
-  const sizeY = (size.y as any)._value as number;
+  const marginX = Platform.OS=='android'?0.4:0.25;
+  const marginY = Platform.OS=='android'?-0.5:-0.3;
 
-  return `M0,0H${canvasSize.x}V${canvasSize.y}H0V0ZM${positionX},${positionY}H${
-    positionX + sizeX
-  }V${positionY + sizeY}H${positionX}V${positionY}Z`;
+  const sX = Platform.OS=='android'?-0.2:0.4;
+  const sY = Platform.OS=='android'?-0.2:-0.7;
+
+  const radius = Platform.OS=='android'? 9:9;
+
+  
+
+  const positionX = (position.x as any)._value as number + marginX;
+  const positionY = (position.y as any)._value as number - marginY;
+  const sizeX = (size.x as any)._value as number + sX;
+  const sizeY = (size.y as any)._value as number - sY;
+
+  return `M0,0H${canvasSize.x}V${canvasSize.y}H0V0ZM${positionX + radius},${positionY}H${
+    positionX + sizeX - radius
+  }Q${positionX + sizeX},${positionY} ${positionX + sizeX},${positionY + radius}V${
+    positionY + sizeY - radius
+  }Q${positionX + sizeX},${positionY + sizeY} ${positionX + sizeX - radius},${
+    positionY + sizeY
+  }H${positionX + radius}Q${positionX},${positionY + sizeY} ${positionX},${
+    positionY + sizeY - radius
+  }V${positionY + radius}Q${positionX},${positionY} ${positionX + radius},${positionY}Z`;
 };
 
 export const SvgMask = ({
@@ -129,12 +146,12 @@ export const SvgMask = ({
       onStartShouldSetResponder={onClick}
     >
       {canvasSize ? (
-        <Svg pointerEvents="none" width={canvasSize.x} height={canvasSize.y}>
+        <Svg pointerEvents="none" width={canvasSize.x} height={canvasSize.y}  >
           <AnimatedSvgPath
             ref={maskRef}
             fill={backdropColor}
             fillRule="evenodd"
-            strokeWidth={1}
+            strokeWidth={20}
             d={svgMaskPath({
               size: sizeValue,
               position: positionValue,

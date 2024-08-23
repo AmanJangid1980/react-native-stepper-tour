@@ -58,7 +58,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
         : "view",
       animated = typeof NativeModules.RNSVGSvgViewManager !== "undefined",
       androidStatusBarVisible = false,
-      backdropColor = "rgba(0, 0, 0, 0.4)",
+      backdropColor = "rgba(0, 0, 0, 0.5)",
       labels = {
         finish: "Finish",
         next: "Next",
@@ -69,9 +69,9 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
       stopOnOutsideClick = false,
       arrowColor = "#fff",
       arrowSize = ARROW_SIZE,
-      margin = MARGIN
+      margin = MARGIN,
     },
-    ref
+    ref,
   ) {
     const { stop, currentStep, visible } = useCopilot();
     const [tooltipStyles, setTooltipStyles] = useState({});
@@ -82,7 +82,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
     });
     const layoutRef = useRef(makeDefaultLayout());
     const [layout, setLayout] = useState<LayoutRectangle | undefined>(
-      undefined
+      undefined,
     );
     const [maskRect, setMaskRect] = useState<LayoutRectangle | undefined>();
 
@@ -155,20 +155,28 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
         const tooltip: ViewStyle = {};
         const arrow: ViewStyle = {};
 
+        arrow.position = "absolute";
+
         if (verticalPosition === "bottom") {
           tooltip.top = rect.y + rect.height + margin;
           arrow.borderBottomColor = arrowColor;
+          arrow.borderTopColor = "transparent";
+          arrow.borderLeftColor = "transparent";
+          arrow.borderRightColor = "transparent";
           arrow.top = tooltip.top - arrowSize * 2;
         } else {
           tooltip.bottom = newMeasuredLayout.height - (rect.y - margin);
           arrow.borderTopColor = arrowColor;
+          arrow.borderLeftColor = "transparent";
+          arrow.borderRightColor = "transparent";
+          arrow.borderBottomColor = "transparent";
           arrow.bottom = tooltip.bottom - arrowSize * 2;
         }
 
         if (horizontalPosition === "left") {
           tooltip.right = Math.max(
             newMeasuredLayout.width - (rect.x + rect.width),
-            0
+            0,
           );
           tooltip.right =
             tooltip.right === 0 ? tooltip.right + margin : tooltip.right;
@@ -182,9 +190,9 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
           arrow.left = tooltip.left + margin;
         }
 
-        sanitize(arrow)
-        sanitize(tooltip)
-        sanitize(rect)
+        sanitize(arrow);
+        sanitize(tooltip);
+        sanitize(rect);
 
         const animate = [
           ["top", rect.y],
@@ -200,7 +208,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
                 easing,
                 useNativeDriver: false,
               });
-            })
+            }),
           ).start();
         } else {
           animate.forEach(([key, value]) => {
@@ -211,11 +219,12 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
         setTooltipStyles(tooltip);
         setArrowStyles(arrow);
         setLayout(newMeasuredLayout);
+        
         setMaskRect({
           width: rect.width,
           height: rect.height,
-          x: Math.floor(Math.max(rect.x, 0)),
-          y: Math.floor(Math.max(rect.y, 0)),
+          x: (Math.max(rect.x, 0)),
+          y: (Math.max(rect.y, 0)),
         });
       },
       [
@@ -227,7 +236,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
         isAnimated,
         arrowSize,
         margin,
-      ]
+      ],
     );
 
     const animateMove = useCallback<CopilotModalHandle["animateMove"]>(
@@ -244,7 +253,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
           });
         });
       },
-      [_animateMove]
+      [_animateMove],
     );
 
     const reset = () => {
@@ -354,7 +363,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
             key="tooltip"
             style={[styles.tooltip, tooltipStyles, tooltipStyle]}
           >
-            <TooltipComponent labels={labels} />
+            <TooltipComponent labels={labels}/>
           </Animated.View>
         </>
       );

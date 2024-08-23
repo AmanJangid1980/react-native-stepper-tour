@@ -2,10 +2,10 @@ import { StyleSheet } from "react-native";
 
 export const STEP_NUMBER_RADIUS: number = 14;
 export const STEP_NUMBER_DIAMETER: number = STEP_NUMBER_RADIUS * 2;
-export const ZINDEX: number = 100;
+export const ZINDEX: number = 1;
 export const MARGIN: number = 13;
-export const OFFSET_WIDTH: number = 4;
-export const ARROW_SIZE: number = 6;
+export const OFFSET_WIDTH: number = -1;
+export const ARROW_SIZE: number = 8;
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,11 +15,14 @@ export const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: ZINDEX,
+    borderRadius:10,
+    // backgroundColor:'green',
   },
   arrow: {
     position: "absolute",
-    borderColor: "transparent",
+    // borderColor: "transparent",
     borderWidth: ARROW_SIZE,
+    zIndex: ZINDEX+1,
   },
   tooltip: {
     position: "absolute",
@@ -67,7 +70,7 @@ export const styles = StyleSheet.create({
   },
   overlayRectangle: {
     position: "absolute",
-    backgroundColor: "rgba(0,0,0,0.2)",
+    // backgroundColor: "rgba(0,0,0,0.5)",
     left: 0,
     top: 0,
     bottom: 0,
@@ -79,5 +82,6 @@ export const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     right: 0,
+    // backgroundColor:'red'
   },
 });
