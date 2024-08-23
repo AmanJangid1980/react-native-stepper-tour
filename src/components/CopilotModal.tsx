@@ -58,7 +58,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
         : "view",
       animated = typeof NativeModules.RNSVGSvgViewManager !== "undefined",
       androidStatusBarVisible = false,
-      backdropColor = "rgba(0, 0, 0, 0.4)",
+      backdropColor = "rgba(0, 0, 0, 0.5)",
       labels = {
         finish: "Finish",
         next: "Next",
@@ -219,11 +219,12 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
         setTooltipStyles(tooltip);
         setArrowStyles(arrow);
         setLayout(newMeasuredLayout);
+        
         setMaskRect({
           width: rect.width,
           height: rect.height,
-          x: Math.floor(Math.max(rect.x, 0)),
-          y: Math.floor(Math.max(rect.y, 0)),
+          x: (Math.max(rect.x, 0)),
+          y: (Math.max(rect.y, 0)),
         });
       },
       [
@@ -362,7 +363,7 @@ export const CopilotModal = forwardRef<CopilotModalHandle, Props>(
             key="tooltip"
             style={[styles.tooltip, tooltipStyles, tooltipStyle]}
           >
-            <TooltipComponent labels={labels} />
+            <TooltipComponent labels={labels}/>
           </Animated.View>
         </>
       );
