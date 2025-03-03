@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import DeviceInfo from 'react-native-device-info';
 
 export const STEP_NUMBER_RADIUS: number = 14;
 export const STEP_NUMBER_DIAMETER: number = STEP_NUMBER_RADIUS * 2;
@@ -6,12 +7,18 @@ export const ZINDEX: number = 1;
 export const MARGIN: number = 13;
 export const OFFSET_WIDTH: number = -1;
 export const ARROW_SIZE: number = 8;
+const deviceModel = DeviceInfo.getModel(); 
 
+const deviceOffsets: Record<string, number> = {
+  "SM-E055F": -8,
+};
+
+const topValue = deviceOffsets[deviceModel] ?? 0;
 export const styles = StyleSheet.create({
   container: {
     position: "absolute",
     left: 0,
-    top: 0,
+    top: topValue,
     right: 0,
     bottom: 0,
     zIndex: ZINDEX,
