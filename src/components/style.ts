@@ -10,7 +10,7 @@ export const ARROW_SIZE: number = 8;
 const deviceModel = DeviceInfo.getModel(); 
 
 const deviceOffsets: Record<string, number> = {
-  "SM-E055F": -8,
+  "SM-E055F": -9,
 };
 
 const topValue = deviceOffsets[deviceModel] ?? 0;
