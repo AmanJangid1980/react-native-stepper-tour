@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet ,Platform} from "react-native";
 import DeviceInfo from 'react-native-device-info';
 
 export const STEP_NUMBER_RADIUS: number = 14;
@@ -13,7 +13,7 @@ const deviceOffsets: Record<string, number> = {
   "SM-E055F": -9,
 };
 
-const topValue = deviceOffsets[deviceModel] ?? 0;
+const topValue = Platform.OS === "android" ? (deviceOffsets[deviceModel] ?? 0) : 0;
 export const styles = StyleSheet.create({
   container: {
     position: "absolute",
