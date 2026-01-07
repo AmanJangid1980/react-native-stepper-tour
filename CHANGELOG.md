@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.0] - 2024-08-16
+## [1.2.0] - 2024-08-16
 ### Added
 - New feature: Added ability to customize the tooltip color.
 - New feature: Added support for RTL (Right-to-Left) languages.
